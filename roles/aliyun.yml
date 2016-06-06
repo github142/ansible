@@ -1,0 +1,11 @@
+---
+- include: /etc/ansible/roles/auto_fdisk/auto_fdisk.yml
+- include: /etc/ansible/roles/zabbix/zabbix-install.yml
+- name: restart machine
+  hosts: all
+ tasks:
+ - name: reboot system
+    command: shutdown -r now "Ansible updates triggered"
+    async: 0
+    poll: 0
+    ignore_errors: true

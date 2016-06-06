@@ -1,0 +1,20 @@
+---
+- name: Fdisk aliyun disk /dev/xvdb and add to fstab
+  hosts: all
+  vars:
+     ssh_port: 21345
+     changsha_ip: 220.169.30.125
+  tasks:
+  - name: Install libselinux-python and disabled selinux
+    yum: name=libselinux-python state=present
+  - selinux: state=disabled
+
+  - script: /etc/ansible/roles/auto_fdisk/auto_fdisk.sh
+
+  - name: Modify sshd port 
+    lineinfile: dest=/etc/ssh/sshd_config create=yes state=present regexp="Port 22" 
+                line="Port {{ ssh_port }}"
+
+  - iptables: chain=INPUT source={{ changsha_ip }} protocol=tcp destination_port={{ ssh_port }} jump=ACCEPT
+  - name: Save iptables rules
+    command: service iptables save

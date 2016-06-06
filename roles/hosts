@@ -1,0 +1,2 @@
+[test]
+192.168.199.231 ansible_ssh_user=root ansible_ssh_pass=beidouapp ansible_ssh_port=22
