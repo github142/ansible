@@ -1,2 +1,2 @@
-# hello-world
-test2016-02-01
+# ansible 学习过程写的一些yml 脚本
+
