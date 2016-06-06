@@ -17,10 +17,10 @@ wq
 EOF
 
 if [ $? -eq 0 ]; then
-    mkswap $disk_dev1
-    mkfs.ext4 $disk_dev2
-    echo "$disk_dev2             /opt                 ext4    defaults        0 0" >> /etc/fstab
-    echo "$disk_dev1             swap                 swap    defaults        0 0" >> /etc/fstab
+    mkswap "$disk_dev"1
+    mkfs.ext4 "$disk_dev"2
+    echo ""$disk_dev"2             /opt                 ext4    defaults        0 0" >> /etc/fstab
+    echo ""$disk_dev"1             swap                 swap    defaults        0 0" >> /etc/fstab
     mount -a
   else
     exit 1
