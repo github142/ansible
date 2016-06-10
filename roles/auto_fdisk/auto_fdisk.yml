@@ -9,7 +9,7 @@
     yum: name=libselinux-python state=present
   - selinux: state=disabled
 
-  - script: /etc/ansible/roles/auto_fdisk/auto_fdisk.sh
+  - script: /etc/ansible/roles/auto_fdisk/auto_fdisk_lvm.sh
 
   - name: Modify sshd port 
     lineinfile: dest=/etc/ssh/sshd_config create=yes state=present regexp="Port 22" 
