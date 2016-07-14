@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: shell
+      shell: date +%Y-%m-%d_%H
+      register: Time
+    - name: test backup to /opt/
+      shell: tar -zcf /opt/test{{Time.stdout}}.tar.gz test chdir=/opt/
+    - name: fetch test.tar.gz to  /opt/backupdata/
+      fetch: src=/opt/test{{Time.stdout}}.tar.gz dest=/opt/backupdata/ flat=no
