@@ -1,0 +1,27 @@
+---
+- name: test1
+  remote_user: centos
+  sudo: true
+  gather_facts: true
+  hosts: 192.168.106.156
+  vars:
+     vroute_id: 80
+     priority: 100
+     keepalived_vip: 192.168.106.200
+     really_vip: 192.168.106.156
+  roles:
+    - keepalived
+    - yum
+
+- name: test2
+  remote_user: centos
+  sudo: true
+  gather_facts: true
+  hosts: 192.168.106.158
+  vars:
+     vroute_id: 80
+     priority: 90
+     keepalived_vip: 192.168.106.200
+     really_vip: 192.168.106.158
+  roles:
+    - keepalived

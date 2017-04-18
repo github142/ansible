@@ -1,0 +1,72 @@
+--- 
+-
+  hosts: test
+  remote_user: centos
+  sudo: true
+  roles:
+    - yum
+
+- 
+  hosts: mysql-master
+  remote_user: centos
+  roles: 
+    - 
+      mysql_db_id: 11
+      role: mysql
+  sudo: true
+- 
+  hosts: mysql-slave
+  remote_user: centos
+  roles: 
+    - 
+      mysql_db_id: 12
+      role: mysql
+  sudo: true
+- 
+  hosts: mysql-master
+  remote_user: centos
+  roles: 
+    - 
+      mysql_repl_role: db1
+      db2: 192.168.106.158
+      db1: 192.168.106.156
+      role: mysql-repl
+  sudo: true
+
+-
+  hosts: mysql-slave
+  remote_user: centos
+  roles:
+    -
+      mysql_repl_role: db2
+      db1: 192.168.106.156
+      db2: 192.168.106.158
+      role: mysql-repl
+  sudo: true
+
+- name: test1
+  remote_user: centos
+  sudo: true
+  gather_facts: true
+  hosts: 192.168.106.156
+  vars:
+     vroute_id: 80
+     priority: 100
+     keepalived_vip: 192.168.106.200
+     really_vip: 192.168.106.156
+  roles:
+    - keepalived
+
+- name: test2
+  remote_user: centos
+  sudo: true
+  gather_facts: true
+  hosts: 192.168.106.158
+  vars:
+     vroute_id: 80
+     priority: 90
+     keepalived_vip: 192.168.106.200
+     really_vip: 192.168.106.158
+  roles:
+    - keepalived
+
